@@ -3,6 +3,8 @@ import io
 from concurrent.futures import ThreadPoolExecutor
 from threading import Lock
 from uuid import uuid4
+from pathlib import Path
+from run_storage import RunStore
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -28,8 +30,9 @@ app.add_middleware(
 # Фоновые задания выполняются по одному.
 executor = ThreadPoolExecutor(max_workers=1)
 
-# Результаты хранятся в памяти до перезапуска сервера.
-runs = {}
+# Результаты восстанавливаются из JSON при старте.
+store = RunStore(Path(__file__).resolve().parent / "storage" / "runs")
+runs = store.load()
 runs_lock = Lock()
 
 # Защищает агента от одновременного запуска через /preview и /runs.
@@ -52,20 +55,23 @@ def preview():
 
 
 def execute_agent(run_id: str):
-    with runs_lock:
-        runs[run_id]["status"] = "running"
-
     try:
+        with runs_lock:
+            runs[run_id]["status"] = "running"
+            store.save(run_id, runs[run_id])
         result = calculate_result()
 
         with runs_lock:
             runs[run_id]["result"] = result
             runs[run_id]["status"] = "completed"
+            store.save(run_id, runs[run_id])
 
     except Exception as exc:
         with runs_lock:
             runs[run_id]["error"] = str(exc)
             runs[run_id]["status"] = "failed"
+            runs[run_id]["result"] = None
+            store.save(run_id, runs[run_id])
 
 
 @app.post("/runs", status_code=202)
@@ -78,6 +84,8 @@ def create_run():
             "result": None,
             "error": None,
         }
+
+        store.save(run_id, runs[run_id])
 
     executor.submit(execute_agent, run_id)
 
@@ -147,3 +155,5 @@ def download_submission(run_id: str):
             )
         },
     )
+
+
