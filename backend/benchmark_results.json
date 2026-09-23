@@ -1,0 +1,272 @@
+{
+  "environment": "official participant mock",
+  "start_seed": 0,
+  "summary": {
+    "template": {
+      "runs": 10,
+      "positive": 0,
+      "mean": -480836.1838287679,
+      "median": -357947.7963826433,
+      "min": -1019431.0606441048,
+      "max": -76493.45195450934
+    },
+    "production": {
+      "runs": 10,
+      "positive": 10,
+      "mean": 2639851.366437611,
+      "median": 2757820.1380013446,
+      "min": 2241614.476667526,
+      "max": 2896999.912740168
+    },
+    "confirmed_channels": {
+      "runs": 10,
+      "positive": 10,
+      "mean": 2441804.3874693,
+      "median": 2477541.6636159597,
+      "min": 2045866.422785719,
+      "max": 2710812.562436845
+    }
+  },
+  "runs": [
+    {
+      "seed": 0,
+      "agent": "template",
+      "net": -1019431.0606441048,
+      "pilots": 6,
+      "runtime_seconds": 0.265,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 0,
+      "agent": "production",
+      "net": 2664655.6036335328,
+      "pilots": 18,
+      "runtime_seconds": 0.5,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 0,
+      "agent": "confirmed_channels",
+      "net": 2529131.819322652,
+      "pilots": 18,
+      "runtime_seconds": 0.469,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 1,
+      "agent": "template",
+      "net": -576203.7790105487,
+      "pilots": 6,
+      "runtime_seconds": 0.25,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 1,
+      "agent": "production",
+      "net": 2858850.0485879043,
+      "pilots": 18,
+      "runtime_seconds": 0.437,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 1,
+      "agent": "confirmed_channels",
+      "net": 2565755.052296424,
+      "pilots": 19,
+      "runtime_seconds": 0.469,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 2,
+      "agent": "template",
+      "net": -338970.97459386534,
+      "pilots": 6,
+      "runtime_seconds": 0.25,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 2,
+      "agent": "production",
+      "net": 2265441.335564829,
+      "pilots": 18,
+      "runtime_seconds": 0.485,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 2,
+      "agent": "confirmed_channels",
+      "net": 2446589.09498104,
+      "pilots": 18,
+      "runtime_seconds": 0.468,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 3,
+      "agent": "template",
+      "net": -140280.93497766246,
+      "pilots": 6,
+      "runtime_seconds": 0.203,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 3,
+      "agent": "production",
+      "net": 2241614.476667526,
+      "pilots": 18,
+      "runtime_seconds": 0.438,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 3,
+      "agent": "confirmed_channels",
+      "net": 2238166.6444539074,
+      "pilots": 18,
+      "runtime_seconds": 0.453,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 4,
+      "agent": "template",
+      "net": -1019236.6714434463,
+      "pilots": 6,
+      "runtime_seconds": 0.219,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 4,
+      "agent": "production",
+      "net": 2814299.1835891334,
+      "pilots": 18,
+      "runtime_seconds": 0.547,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 4,
+      "agent": "confirmed_channels",
+      "net": 2471461.6707487605,
+      "pilots": 19,
+      "runtime_seconds": 0.453,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 5,
+      "agent": "template",
+      "net": -366963.8866435362,
+      "pilots": 6,
+      "runtime_seconds": 0.234,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 5,
+      "agent": "production",
+      "net": 2260007.261380794,
+      "pilots": 18,
+      "runtime_seconds": 0.438,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 5,
+      "agent": "confirmed_channels",
+      "net": 2045866.422785719,
+      "pilots": 18,
+      "runtime_seconds": 0.437,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 6,
+      "agent": "template",
+      "net": -320311.84019152867,
+      "pilots": 6,
+      "runtime_seconds": 0.25,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 6,
+      "agent": "production",
+      "net": 2896999.912740168,
+      "pilots": 18,
+      "runtime_seconds": 0.453,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 6,
+      "agent": "confirmed_channels",
+      "net": 2710812.562436845,
+      "pilots": 20,
+      "runtime_seconds": 0.516,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 7,
+      "agent": "template",
+      "net": -348931.70612175035,
+      "pilots": 6,
+      "runtime_seconds": 0.234,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 7,
+      "agent": "production",
+      "net": 2850354.294855194,
+      "pilots": 18,
+      "runtime_seconds": 0.453,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 7,
+      "agent": "confirmed_channels",
+      "net": 2511848.6665341128,
+      "pilots": 19,
+      "runtime_seconds": 0.469,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 8,
+      "agent": "template",
+      "net": -76493.45195450934,
+      "pilots": 6,
+      "runtime_seconds": 0.235,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 8,
+      "agent": "production",
+      "net": 2844950.4549434744,
+      "pilots": 18,
+      "runtime_seconds": 0.453,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 8,
+      "agent": "confirmed_channels",
+      "net": 2414790.2846503817,
+      "pilots": 19,
+      "runtime_seconds": 0.468,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 9,
+      "agent": "template",
+      "net": -601537.532706727,
+      "pilots": 6,
+      "runtime_seconds": 0.235,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 9,
+      "agent": "production",
+      "net": 2701341.092413556,
+      "pilots": 18,
+      "runtime_seconds": 0.469,
+      "evaluator_messages": ""
+    },
+    {
+      "seed": 9,
+      "agent": "confirmed_channels",
+      "net": 2483621.6564831594,
+      "pilots": 19,
+      "runtime_seconds": 0.484,
+      "evaluator_messages": ""
+    }
+  ]
+}
