@@ -1,0 +1,16 @@
+Command: python local_eval.py --runs 10
+seed 0: 2664656
+seed 1: 2858850
+seed 2: 2265441
+seed 3: 2241614
+seed 4: 2814299
+seed 5: 2260007
+seed 6: 2897000
+seed 7: 2850354
+seed 8: 2844950
+seed 9: 2701341
+Median: 2757820
+Minimum: 2241614
+Maximum: 2897000
+Positive: 10/10
+Rounded values transcribed from the official CLI output; mock environment only.
