@@ -15,11 +15,8 @@ This is **not a service that finds the cheapest or "perfect" tariff for each
 subscriber**. Its primary user is a marketing analyst. The objective is to
 increase the operator's revenue after communication costs, within the case limits.
 
-> **Working application:** [integration-dashboard-metrics](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/tree/integration-dashboard-metrics).
-> This branch contains the frontend, Python API, agent, and case data.
-> The `main` branch currently contains the project overview and an earlier frontend.
-> The complete application is proposed for integration in [PR #2](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/pull/2).
-> The setup instructions below apply to the working application branch.
+The complete dashboard, Python API, agent, and case data are included in this repository.
+Use the instructions below to run the project locally.
 
 ## Problem and Target User
 
@@ -167,7 +164,7 @@ Unknown runs return HTTP 404; results that are not ready return HTTP 409.
 Run the following in PowerShell:
 
 ```powershell
-git clone --branch integration-dashboard-metrics https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven.git HackAlem
+git clone https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven.git HackAlem
 cd HackAlem
 powershell -NoProfile -ExecutionPolicy Bypass -File .\start.ps1
 ```
@@ -292,7 +289,7 @@ There are no live CRM, billing, SMS-provider, or advertising-platform integratio
 - Each subscriber's effect is counted once, using their best campaign.
 - Agent execution must take no more than 10 minutes.
 
-See the [participant guide](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/blob/integration-dashboard-metrics/backend/PARTICIPANT_GUIDE.md)
+See the [participant guide](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/blob/main/backend/PARTICIPANT_GUIDE.md)
 for the original case requirements.
 
 ### Current Application Limitations
@@ -316,6 +313,4 @@ No public deployment URL is documented in the repository. The demonstration runs
 locally using the instructions above. `localhost` and `127.0.0.1` are local
 addresses, not public deployment links.
 
-[Working Application](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/tree/integration-dashboard-metrics)
-| [Integration Pull Request](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/pull/2)
-| [Team Repository](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven)
+[Team Repository](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven)

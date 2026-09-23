@@ -1,0 +1,11 @@
+.venv/
+.run/
+/backend_api/
+**/__pycache__/
+*.py[cod]
+**/node_modules/
+**/dist/
+.env
+.env.*
+!.env.example
+*.log
