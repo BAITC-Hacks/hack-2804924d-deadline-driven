@@ -1,0 +1,135 @@
+{
+  "status": "PASS",
+  "environment": "official participant mock",
+  "csv_reproducible": true,
+  "runs": [
+    {
+      "seed": 0,
+      "campaign_count": 4,
+      "final_contacts": 6919,
+      "final_cost": 87318.0,
+      "disjoint_audiences": true,
+      "pilot_count": 18,
+      "total_cost": 99318.0,
+      "total_contacts": 9919,
+      "net": 2664655.6036335328,
+      "runtime_seconds": 0.26500000001396984
+    },
+    {
+      "seed": 1,
+      "campaign_count": 3,
+      "final_contacts": 3969,
+      "final_cost": 87318.0,
+      "disjoint_audiences": true,
+      "pilot_count": 18,
+      "total_cost": 99318.0,
+      "total_contacts": 6969,
+      "net": 2858850.0485879043,
+      "runtime_seconds": 0.23399999999674037
+    },
+    {
+      "seed": 2,
+      "campaign_count": 5,
+      "final_contacts": 8940,
+      "final_cost": 76242.0,
+      "disjoint_audiences": true,
+      "pilot_count": 18,
+      "total_cost": 88242.0,
+      "total_contacts": 11940,
+      "net": 2265441.335564829,
+      "runtime_seconds": 0.21899999998277053
+    },
+    {
+      "seed": 3,
+      "campaign_count": 2,
+      "final_contacts": 2249,
+      "final_cost": 49478.0,
+      "disjoint_audiences": true,
+      "pilot_count": 18,
+      "total_cost": 61478.0,
+      "total_contacts": 5249,
+      "net": 2241614.476667526,
+      "runtime_seconds": 0.25
+    },
+    {
+      "seed": 4,
+      "campaign_count": 3,
+      "final_contacts": 3969,
+      "final_cost": 87318.0,
+      "disjoint_audiences": true,
+      "pilot_count": 18,
+      "total_cost": 99318.0,
+      "total_contacts": 6969,
+      "net": 2814299.1835891334,
+      "runtime_seconds": 0.21799999999348074
+    },
+    {
+      "seed": 5,
+      "campaign_count": 2,
+      "final_contacts": 2249,
+      "final_cost": 49478.0,
+      "disjoint_audiences": true,
+      "pilot_count": 18,
+      "total_cost": 61478.0,
+      "total_contacts": 5249,
+      "net": 2260007.261380794,
+      "runtime_seconds": 0.25
+    },
+    {
+      "seed": 6,
+      "campaign_count": 5,
+      "final_contacts": 10328,
+      "final_cost": 81794.0,
+      "disjoint_audiences": true,
+      "pilot_count": 18,
+      "total_cost": 93794.0,
+      "total_contacts": 13328,
+      "net": 2896999.912740168,
+      "runtime_seconds": 0.25
+    },
+    {
+      "seed": 7,
+      "campaign_count": 3,
+      "final_contacts": 3969,
+      "final_cost": 87318.0,
+      "disjoint_audiences": true,
+      "pilot_count": 18,
+      "total_cost": 99318.0,
+      "total_contacts": 6969,
+      "net": 2850354.294855194,
+      "runtime_seconds": 0.21899999998277053
+    },
+    {
+      "seed": 8,
+      "campaign_count": 4,
+      "final_contacts": 5602,
+      "final_cost": 62890.0,
+      "disjoint_audiences": true,
+      "pilot_count": 18,
+      "total_cost": 74890.0,
+      "total_contacts": 8602,
+      "net": 2844950.4549434744,
+      "runtime_seconds": 0.20300000003771856
+    },
+    {
+      "seed": 9,
+      "campaign_count": 5,
+      "final_contacts": 11645,
+      "final_cost": 87062.0,
+      "disjoint_audiences": true,
+      "pilot_count": 18,
+      "total_cost": 99062.0,
+      "total_contacts": 14645,
+      "net": 2701341.092413556,
+      "runtime_seconds": 0.21899999998277053
+    }
+  ],
+  "summary": {
+    "runs": 10,
+    "positive": 10,
+    "mean_net": 2639851.366437611,
+    "min_net": 2241614.476667526,
+    "max_net": 2896999.912740168,
+    "max_runtime_seconds": 0.26500000001396984
+  }
+}

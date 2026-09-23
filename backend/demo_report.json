@@ -1,0 +1,300 @@
+{
+  "environment": "mock",
+  "seed": 42,
+  "campaigns": [
+    {
+      "campaign_name": "campaign_01",
+      "filter_current_tariff": "tariff_4",
+      "filter_arpu_segment": "MID",
+      "target_tariff": "tariff_8",
+      "channel": "digital_ads"
+    },
+    {
+      "campaign_name": "campaign_02",
+      "filter_current_tariff": "tariff_8",
+      "filter_arpu_segment": "MID",
+      "target_tariff": "tariff_10",
+      "channel": "digital_ads"
+    },
+    {
+      "campaign_name": "campaign_03",
+      "filter_current_tariff": "tariff_13",
+      "filter_arpu_segment": "MID",
+      "target_tariff": "tariff_8",
+      "channel": "digital_ads"
+    }
+  ],
+  "report": {
+    "pilots": [
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_8",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_12",
+        "channel": "sms",
+        "n": 150,
+        "ratio": -0.0659472708435558,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_10",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_9",
+        "channel": "sms",
+        "n": 150,
+        "ratio": 0.03657896114687498,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_8",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_10",
+        "channel": "sms",
+        "n": 150,
+        "ratio": -0.1238981047148875,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_4",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_12",
+        "channel": "sms",
+        "n": 150,
+        "ratio": -0.08532448367768523,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_11",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_12",
+        "channel": "sms",
+        "n": 150,
+        "ratio": -0.009919872619728487,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_8",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_11",
+        "channel": "sms",
+        "n": 150,
+        "ratio": 0.0014554661864580021,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_10",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_7",
+        "channel": "sms",
+        "n": 150,
+        "ratio": 0.05138654434108921,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_8",
+          "filter_arpu_segment": "MID"
+        },
+        "target": "tariff_10",
+        "channel": "sms",
+        "n": 150,
+        "ratio": 0.11393218805163655,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_4",
+          "filter_arpu_segment": "MID"
+        },
+        "target": "tariff_8",
+        "channel": "sms",
+        "n": 150,
+        "ratio": 0.23015275216166026,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_10",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_6",
+        "channel": "sms",
+        "n": 150,
+        "ratio": 0.02434756925701329,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_4",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_9",
+        "channel": "sms",
+        "n": 150,
+        "ratio": 0.022938593652222953,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_13",
+          "filter_arpu_segment": "MID"
+        },
+        "target": "tariff_8",
+        "channel": "sms",
+        "n": 150,
+        "ratio": 0.10371568004258067,
+        "cost": 600.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_10",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_7",
+        "channel": "sms",
+        "n": 200,
+        "ratio": -0.00918105821214191,
+        "cost": 800.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_8",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_11",
+        "channel": "sms",
+        "n": 200,
+        "ratio": -0.007951281006110181,
+        "cost": 800.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_10",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_9",
+        "channel": "sms",
+        "n": 200,
+        "ratio": 0.056817766547261506,
+        "cost": 800.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_10",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_6",
+        "channel": "sms",
+        "n": 200,
+        "ratio": -0.0151279161258254,
+        "cost": 800.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_10",
+          "filter_arpu_segment": "HIGH"
+        },
+        "target": "tariff_9",
+        "channel": "sms",
+        "n": 200,
+        "ratio": -0.03270468215291955,
+        "cost": 800.0
+      },
+      {
+        "filters": {
+          "filter_current_tariff": "tariff_4",
+          "filter_arpu_segment": "MID"
+        },
+        "target": "tariff_8",
+        "channel": "sms",
+        "n": 200,
+        "ratio": 0.18641602397282278,
+        "cost": 800.0
+      }
+    ],
+    "warnings": [],
+    "campaigns": [
+      {
+        "campaign_name": "campaign_01",
+        "filter_current_tariff": "tariff_4",
+        "filter_arpu_segment": "MID",
+        "target_tariff": "tariff_8",
+        "channel": "digital_ads",
+        "contacts": 1227,
+        "cost": 26994.0,
+        "estimated_ratio": 0.2632172136749456,
+        "uncertainty": 0.055290948823930645,
+        "pilot_samples": 350,
+        "estimate_basis": "channel_multiplier",
+        "channel_confirmed": false,
+        "estimated_unexposed_fraction": 0.7346779769768633,
+        "selection_reason": "Positive risk-adjusted estimate within remaining resources"
+      },
+      {
+        "campaign_name": "campaign_02",
+        "filter_current_tariff": "tariff_8",
+        "filter_arpu_segment": "MID",
+        "target_tariff": "tariff_10",
+        "channel": "digital_ads",
+        "contacts": 1720,
+        "cost": 37840.0,
+        "estimated_ratio": 0.14322445058413025,
+        "uncertainty": 0.08322753126761484,
+        "pilot_samples": 150,
+        "estimate_basis": "channel_multiplier",
+        "channel_confirmed": false,
+        "estimated_unexposed_fraction": 0.9127906976744186,
+        "selection_reason": "Positive risk-adjusted estimate within remaining resources"
+      },
+      {
+        "campaign_name": "campaign_03",
+        "filter_current_tariff": "tariff_13",
+        "filter_arpu_segment": "MID",
+        "target_tariff": "tariff_8",
+        "channel": "digital_ads",
+        "contacts": 1022,
+        "cost": 22484.0,
+        "estimated_ratio": 0.13111520128014473,
+        "uncertainty": 0.08322753126761484,
+        "pilot_samples": 150,
+        "estimate_basis": "channel_multiplier",
+        "channel_confirmed": false,
+        "estimated_unexposed_fraction": 0.8532289628180039,
+        "selection_reason": "Positive risk-adjusted estimate within remaining resources"
+      }
+    ],
+    "pilot_errors": [],
+    "pilot_cost": 12000.0,
+    "pilot_contacts": 3000,
+    "final_cost": 87318.0,
+    "final_contacts": 3969,
+    "runtime_seconds": 0.25,
+    "estimates_are_forecasts": true,
+    "resources": {
+      "initial_budget": 100000.0,
+      "initial_contacts": 15000,
+      "budget_after_pilots": 88000.0,
+      "contacts_after_pilots": 12000,
+      "budget_after_plan": 682.0,
+      "contacts_after_plan": 8031
+    },
+    "requirements": {
+      "has_successful_pilot": true,
+      "has_final_campaign": true,
+      "within_limits": true
+    }
+  }
+}
