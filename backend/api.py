@@ -8,8 +8,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 
-from agent import Agent
-from make_submission import CAMPAIGN_COLUMNS, build_submission
+from run_report import build_run_report
+from make_submission import CAMPAIGN_COLUMNS
 
 
 app = FastAPI(title="Beeline Campaign Agent")
@@ -38,16 +38,7 @@ agent_lock = Lock()
 
 def calculate_result():
     with agent_lock:
-        df = build_submission(Agent(), seed=42)
-
-    # Пропуски должны стать null в JSON.
-    df = df.astype(object).where(df.notna(), None)
-
-    return {
-        "environment": "mock",
-        "campaign_count": len(df),
-        "campaigns": df.to_dict(orient="records"),
-    }
+        return build_run_report(seed=42)
 
 
 @app.get("/health")
