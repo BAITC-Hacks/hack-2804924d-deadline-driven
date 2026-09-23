@@ -1,155 +1,170 @@
 # Beeline Campaign AI
 
-**Deadline Driven | HackAlem | Телекоммуникации**
+**Team Deadline Driven | HackAlem Hackathon | Telecommunications Track**
 
-Агент для планирования тарифных маркетинговых кампаний. Помогает аналитику
-маркетинга решить, каким абонентам предложить смену тарифа, какой тариф выбрать
-и через какой канал связаться, учитывая стоимость контактов и ограниченный бюджет.
+## Project Overview
 
-Проект состоит из самостоятельного Python-агента, FastAPI-бэкенда и веб-интерфейса.
-Текущая версия работает на синтетических данных и демонстрационной среде хакатона,
-не подключается к реальным абонентам и не отправляет сообщения.
+**A marketing assistant that helps Beeline decide which customers to contact,
+which tariff to offer, and which communication channel to use to increase
+revenue without wasting the campaign budget.**
 
-## 1. Проблема и пользователь
+The agent analyzes customer profiles and historical tariff changes, tests ideas
+on small groups, and produces a final marketing campaign plan.
 
-Смена тарифа не всегда увеличивает выручку: абонент может перейти на более дешёвый
-тариф, а контакт через SMS, рекламу или звонок тоже стоит денег. Запуск предложений
-на всю базу без проверки может оказаться убыточным.
+This is **not a service that finds the cheapest or "perfect" tariff for each
+subscriber**. Its primary user is a marketing analyst. The objective is to
+increase the operator's revenue after communication costs, within the case limits.
 
-Основной пользователь решения - маркетинговый аналитик. Агент автоматизирует
-исследование вариантов и формирует план, ориентируясь на прирост выручки
-относительно базового сценария и затраты на коммуникации.
-ARPU означает среднюю выручку на абонента.
+> **Working application:** [integration-dashboard-metrics](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/tree/integration-dashboard-metrics).
+> This branch contains the frontend, Python API, agent, and case data.
+> The `main` branch currently contains the project overview and an earlier frontend.
+> The complete application is proposed for integration in [PR #2](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/pull/2).
+> The setup instructions below apply to the working application branch.
 
-## 2. Что реализовано
+## Problem and Target User
 
-- Сегментация аудитории по текущему тарифу и ARPU; при необходимости большие группы
-  дополнительно разделяются по использованию интернета и звонков.
-- Формирование гипотез на основе истории смен тарифов.
-- Пилоты через публичный метод среды `env.run_pilot(...)`: проверка гипотез на
-  небольших выборках с учётом стоимости и неопределённости результата.
-- Выбор итоговых кампаний и каналов с учётом бюджета, контактов и результатов пилотов.
-- Фоновый запуск агента через API, статусы выполнения и сообщения об ошибках.
-- Веб-интерфейс с итоговыми кампаниями, историей пилотов, чистым приростом,
-  общими затратами и остатком бюджета.
-- Экспорт `submission.csv` из сохранённого результата без повторного запуска агента.
-- Отдельный запуск агента и подготовка CSV из терминала, независимо от сайта.
+A tariff change does not always benefit the operator: a subscriber may start
+paying less, while SMS, advertising, and calls also cost money. Contacting the
+entire customer base without testing can therefore be unprofitable.
 
-Финансовые показатели и пилоты в интерфейсе поступают с бэкенда.
-Это результаты расчёта в демонстрационной среде, а не вручную заданные значения.
+The agent helps marketing analysts identify promising audiences and offers,
+test their assumptions, and allocate limited resources.
 
-## 3. Как работает решение
+### Three Key Terms
 
-**Кампания** - предложение определённой группе абонентов перейти на выбранный
-тариф через выбранный канал. **Пилот** - небольшая пробная кампания для оценки
-эффекта. **План кампаний** - итоговый список предложений после исследования.
-
-1. Пользователь открывает интерфейс и нажимает «Запустить агента».
-2. Бэкенд создаёт запуск, загружает профиль аудитории и демонстрационную среду.
-3. Агент строит сегменты и ранжирует возможные переходы между тарифами по истории.
-4. Агент проводит пилоты, обновляет оценки эффекта и учитывает неопределённость.
-5. Из проверенных вариантов выбирается план с учётом оставшихся ресурсов.
-   Если консервативно прибыльный план не найден, предусмотрен запасной выбор
-   допустимой кампании; положительный результат при этом не гарантируется.
-6. Бэкенд оценивает пилоты и финальный план через `scoring_core.py`.
-   Сам агент не получает внутренние данные скоринга.
-7. Интерфейс показывает результат. Пользователь скачивает CSV итогового плана.
-
-Бэкенд выполняет `Agent.act(env)` один раз на запуск. Кампании, пилоты, метрики
-и CSV относятся к одному результату. Затраты включают и пилоты, и итоговые кампании.
-
-## 4. Технологии
-
-| Компонент | Технологии |
+| Term | Meaning |
 |---|---|
-| Интерфейс | React 19, TypeScript 6, Vite 8, CSS, Lucide React |
-| API | Python, FastAPI, Uvicorn |
-| Работа с данными и стратегия | pandas, NumPy, эвристический выбор с оценкой неопределённости |
-| Среда и оценка | SDK хакатона: `environment.py`, `mock_environment.py`, `scoring_core.py` |
-| Формат данных | CSV, JSON |
-| Запуск на Windows | PowerShell |
-| Проверки в репозитории | Python unittest, Node.js test runner, ESLint, TypeScript |
+| **Campaign** | A selected audience, a target tariff, and a communication channel |
+| **Pilot** | A small trial campaign used to estimate the effect of an offer |
+| **Campaign plan** | The final set of campaigns selected after testing |
 
-**AI-модели и внешние API:** текущий агент не вызывает OpenAI, NVIDIA или другие
-LLM-сервисы. Стратегия реализована в Python; API-ключи и платные токены для запуска
-не нужны. Интернет требуется для первоначальной установки зависимостей.
+For example, the agent can test a tariff offer on a small customer group.
+If the estimated effect looks promising after accounting for cost and uncertainty,
+the offer may be included in the final plan. Profit is not guaranteed.
 
-## 5. Архитектура
+## Implemented Features
+
+- Analysis of customer profiles and historical tariff transitions.
+- Segmentation by current tariff and ARPU, with additional data-usage and call-usage
+  splits when needed. ARPU means average revenue per user.
+- Pilot campaigns through the hackathon environment's public `env.run_pilot(...)` method.
+- Campaign and channel selection based on estimated effects, uncertainty, budget,
+  and contact limits.
+- Background agent runs through the API, with progress states and error handling.
+- A web dashboard with final campaigns, pilot history, net revenue gain, total
+  costs, and remaining budget.
+- CSV export from the stored run result without executing the agent again.
+- Standalone agent evaluation and submission generation without the website.
+
+Campaigns, pilots, and metrics displayed in the dashboard come from the backend
+and belong to the same run. They are calculated in the demo environment, not
+hardcoded sample results.
+
+## How It Works
+
+1. The analyst opens the dashboard and uses the agent launch button.
+2. The backend creates a run and loads the customer profile and demo environment.
+3. The agent builds customer segments and ranks tariff-transition hypotheses
+   using historical data.
+4. It conducts pilots, updates effect estimates, and accounts for uncertainty.
+5. It selects a campaign plan within the remaining budget and contact limits.
+6. The backend evaluates the pilots and final plan using `scoring_core.py`.
+7. The dashboard shows the results and allows the analyst to export the plan as CSV.
+
+The agent runs once per API run. Costs include both pilots and final campaigns.
+The reporting layer computes evaluation metrics; the agent itself does not
+receive private scoring inputs.
+
+If no conservatively profitable plan is found, a fallback can select a feasible
+campaign. This does not guarantee a positive result.
+
+**The current application is a simulation. No real subscribers are contacted,
+and no real campaign money is spent.**
+
+## Technology Stack
+
+| Component | Technologies |
+|---|---|
+| Frontend | React 19, TypeScript 6, Vite 8, CSS, Lucide React |
+| Backend | Python, FastAPI, Uvicorn |
+| Agent and data processing | pandas, NumPy, heuristic selection with uncertainty estimates |
+| Environment and evaluation | Hackathon SDK: `environment.py`, `mock_environment.py`, `scoring_core.py` |
+| Data formats | JSON, CSV |
+| Windows launcher | PowerShell |
+| Checks included in the repository | Python unittest, Node.js test runner, ESLint, TypeScript |
+
+**External AI models:** the current agent does not call OpenAI, NVIDIA, or other
+LLM services. Its strategy is implemented in Python. No API keys or paid model
+tokens are required. Internet access is needed for initial dependency installation.
+
+## Architecture
 
 ```text
-Браузер: React + TypeScript
-          |
-          | /api, прокси Vite при локальном запуске
-          v
-FastAPI: backend/api.py
-          |
-          | очередь запусков, один рабочий поток
-          v
-backend/run_report.py
-          |
-          +--> Agent.act(env) --> профиль, история и публичные пилоты
-          |
-          +--> scoring_core.py --> оценка демонстрационного результата
-          |
-          v
-Сохранённый результат в памяти API
-          |
-          +--> JSON: campaigns, metrics, pilots
-          +--> submission.csv
+React dashboard
+    |
+    | /api via the local Vite proxy
+    v
+FastAPI: run creation, queue, and status
+    |
+    v
+run_report.py
+    |
+    +--> Agent.act(env): data -> hypotheses -> pilots -> campaign plan
+    |
+    +--> scoring_core.py: demo evaluation
+    |
+    v
+Run result stored in API memory
+    |
+    +--> JSON: campaigns, metrics, pilots
+    +--> submission.csv
 ```
 
-Основные файлы:
+### Main Components
 
-```text
-frontend/
-  src/App.tsx          Интерфейс и состояния запуска
-  src/api.ts           Запросы к API и проверка ответов
-  vite.config.ts       Прокси к Python API
-backend/
-  agent.py             Стратегия Agent.act(env)
-  api.py               HTTP API и управление запусками
-  run_report.py        Единый отчёт: кампании, метрики и пилоты
-  environment.py       Публичный интерфейс среды
-  mock_environment.py  Локальная демонстрационная среда
-  scoring_core.py       Оценка и валидация стратегии
-  local_eval.py        Проверка агента без сайта
-  make_submission.py   Формирование submission.csv
-  customer_profile.csv Профиль аудитории
-  data/                Данные кейса
-  requirements.txt     Python-зависимости
-  PARTICIPANT_GUIDE.md  Требования хакатона
-start.ps1              Запуск интерфейса и API на Windows
-stop.ps1               Остановка серверов, запущенных start.ps1
-```
-
-### Основные HTTP-методы
-
-| Метод и путь | Назначение |
+| Path | Responsibility |
 |---|---|
-| `GET /health` | Проверка доступности |
-| `POST /runs` | Создание запуска; возвращает `run_id` |
-| `GET /runs/{run_id}` | Статус: `queued`, `running`, `completed`, `failed` |
-| `GET /runs/{run_id}/result` | Кампании, метрики и пилоты завершённого запуска |
-| `GET /runs/{run_id}/submission` | CSV того же запуска |
-| `POST /preview` | Отдельный синхронный расчёт |
+| `frontend/src/App.tsx` | Dashboard and run states |
+| `frontend/src/api.ts` | API requests and response validation |
+| `frontend/vite.config.ts` | Proxy to the Python API |
+| `backend/agent.py` | Strategy implemented as `Agent.act(env)` |
+| `backend/api.py` | HTTP endpoints and run queue |
+| `backend/run_report.py` | Combined campaign, metric, and pilot report |
+| `backend/environment.py` | Public environment interface |
+| `backend/mock_environment.py` | Local demo environment |
+| `backend/scoring_core.py` | Strategy validation and evaluation |
+| `backend/local_eval.py` | Standalone agent evaluation |
+| `backend/make_submission.py` | Submission CSV generation |
+| `backend/data/` | Case datasets |
+| `start.ps1`, `stop.ps1` | Start and stop the local application |
 
-Интерфейс опрашивает статус раз в секунду. При ошибке опрос прекращается,
-пользователь видит сообщение. Неизвестный запуск возвращает HTTP 404,
-ещё не готовый результат - HTTP 409.
+### HTTP API
 
-## 6. Установка и запуск
+| Method and Path | Purpose |
+|---|---|
+| `GET /health` | Check service availability |
+| `POST /runs` | Create a run and return its `run_id` |
+| `GET /runs/{run_id}` | Read the run status |
+| `GET /runs/{run_id}/result` | Retrieve completed campaigns, metrics, and pilots |
+| `GET /runs/{run_id}/submission` | Download the same run's CSV |
+| `POST /preview` | Perform a separate synchronous calculation |
 
-### Требования
+Run states are `queued`, `running`, `completed`, and `failed`.
+The frontend polls once per second and stops on failure.
+Unknown runs return HTTP 404; results that are not ready return HTTP 409.
 
-- Windows и PowerShell для общего скрипта запуска.
-- Python 3.12+ с поддержкой `venv` и `pip`.
-- Node.js 22.12+ или 24+, npm.
-- Git для клонирования и доступ к репозиторию команды.
+## Installation and Startup
 
-### Быстрый запуск
+### Requirements
 
-Сборка интерфейса, API и агента находится в ветке `integration-dashboard-metrics`.
-В PowerShell выполните:
+- Windows and PowerShell for the combined launcher.
+- Python 3.12+ with `venv` and `pip`.
+- Node.js 22.12+ or 24+, with npm.
+- Git and access to the team repository.
+
+### Quick Start
+
+Run the following in PowerShell:
 
 ```powershell
 git clone --branch integration-dashboard-metrics https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven.git HackAlem
@@ -157,31 +172,35 @@ cd HackAlem
 powershell -NoProfile -ExecutionPolicy Bypass -File .\start.ps1
 ```
 
-Если проект уже находится на компьютере, откройте PowerShell в его корне
-и выполните только команду запуска.
+If you already have the working application locally, open PowerShell in its root
+directory and run only the startup command.
 
-Скрипт создаёт `.venv`, устанавливает отсутствующие зависимости и запускает
-оба сервера в фоне. При необходимости укажите путь к Python явно:
+The script creates `.venv`, installs missing dependencies, and starts the backend
+and frontend in the background.
+
+- Default dashboard: [http://localhost:5173](http://localhost:5173).
+- Default API documentation: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+
+If a port is occupied, the launcher selects another one.
+**Use the actual URLs printed in the terminal.** Logs are stored in `.run/`.
+
+If Python is not detected automatically, specify your interpreter path:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\start.ps1 -Python C:\Python312\python.exe
 ```
 
-Обычно интерфейс доступен по адресу [http://localhost:5173](http://localhost:5173),
-документация API - [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
-Если порт занят, скрипт выберет следующий свободный и напечатает точные адреса.
-Логи находятся в `.run/`.
+Add `-Install` to reinstall dependencies from the project dependency files.
 
-Для переустановки зависимостей из файлов проекта добавьте `-Install`.
-Для остановки:
+To stop the servers started by the launcher:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\stop.ps1
 ```
 
-### Ручной запуск в двух терминалах
+### Manual Startup
 
-В первом терминале, из корня проекта:
+In the first terminal, from the project root:
 
 ```powershell
 py -3.12 -m venv .venv
@@ -189,7 +208,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m uvicorn api:app --app-dir backend --host 127.0.0.1 --port 8000
 ```
 
-Во втором терминале, из корня проекта:
+In a second terminal, from the project root:
 
 ```powershell
 cd frontend
@@ -197,26 +216,26 @@ npm.cmd ci
 npm.cmd run dev -- --host 127.0.0.1 --port 5173
 ```
 
-По умолчанию Vite перенаправляет `/api` на `http://127.0.0.1:8000`.
-Другой адрес бэкенда можно передать через переменную `API_TARGET` перед запуском Vite.
+Vite proxies `/api` to `http://127.0.0.1:8000` by default.
+Set `API_TARGET` before starting Vite to use a different backend address.
 
-## 7. Как проверить решение
+## Verification for Judges
 
-### Сценарий для жюри
+### Dashboard Walkthrough
 
-1. Запустите проект по инструкции выше и откройте адрес интерфейса из терминала.
-2. Нажмите «Запустить агента» и дождитесь завершения расчёта.
-3. Проверьте таблицу итоговых кампаний: сегменты, целевые тарифы и каналы.
-4. Посмотрите историю пилотов и метрики: чистый прирост, затраты, остаток бюджета.
-5. Нажмите «Экспорт CSV». Скачанный файл содержит итоговые кампании этого запуска,
-   без строк пилотов и без финансовых показателей.
+1. Start the application and open the dashboard URL printed in the terminal.
+2. Use the agent launch button and wait for the calculation to finish.
+3. Inspect the selected audiences, target tariffs, and channels in the final plan.
+4. Review the pilot history, net revenue gain, total costs, and remaining budget.
+5. Use the CSV export button to download the final campaigns from that run.
 
-Текущий API использует фиксированный `seed=42` для воспроизводимой демонстрации.
-Это не оценка на скрытых эффектах организаторов.
+The exported CSV contains final campaigns, not pilot records or financial metrics.
+The demo API uses a fixed `seed=42` for reproducibility. It does not evaluate
+against the organizers' hidden effects.
 
-### Проверка агента без интерфейса
+### Standalone Agent Evaluation
 
-После установки Python-зависимостей выполните из корня проекта:
+After installing the Python dependencies, run these commands from the project root:
 
 ```powershell
 cd backend
@@ -224,73 +243,79 @@ cd backend
 ..\.venv\Scripts\python.exe make_submission.py
 ```
 
-Первая команда печатает отчёт локальной оценки. Вторая создаёт
-`backend/submission.csv` с колонками:
+The first command prints an evaluation report. The second creates
+`backend/submission.csv` with these columns:
 
 ```text
 campaign_name,filter_arpu_segment,filter_data_segment,filter_call_segment,filter_current_tariff,target_tariff,channel
 ```
 
-Для дополнительной проверки устойчивости предусмотрена команда
-`..\.venv\Scripts\python.exe local_eval.py --runs 10`.
+An optional multi-seed check is available:
 
-Для сдачи используются `backend/agent.py`, сформированный `submission.csv`
-и файл зависимостей. Сайт и FastAPI не требуются для вызова `Agent.act(env)`.
+```powershell
+..\.venv\Scripts\python.exe local_eval.py --runs 10
+```
 
-## 8. Данные и интеграции
+Submission artifacts are `agent.py`, the generated `submission.csv`, and the
+dependency file. The website and FastAPI are not required to invoke `Agent.act(env)`.
 
-Все исходные данные предоставлены в пакете кейса; они синтетические.
-Суммы выражены в условных единицах, тарифы не соответствуют действующей линейке Beeline.
+## Data and Integrations
 
-| Источник | Назначение |
+The application uses **synthetic data supplied with the hackathon case**, not
+a real customer database. Monetary values are in arbitrary units, and tariff
+identifiers do not represent Beeline's current commercial plans.
+
+| Source | Contents and Use |
 |---|---|
-| `backend/customer_profile.csv` | Целевая аудитория: 23 441 абонент, тарифы, сегменты, прогнозный ARPU |
-| `backend/data/change_tariff.csv` | История смен тарифов и ARPU до и после перехода; используется агентом |
-| `backend/data/arpu_monthly.csv` | Дополнительная история месячной выручки из пакета кейса |
-| `backend/data/traffic.csv` | Дополнительные данные потребления из пакета кейса |
-| `backend/data/dict_tariff.csv`, `backend/tariff_dictionary.csv` | Справочники тарифов |
-| `backend/feature_dictionary.csv` | Описание признаков |
+| `backend/customer_profile.csv` | Profiles of 23,441 subscribers, current tariffs, segments, and predicted ARPU |
+| `backend/data/change_tariff.csv` | Historical tariff changes and ARPU before and after; used by the agent |
+| `backend/data/arpu_monthly.csv` | Additional monthly revenue history included in the case package |
+| `backend/data/traffic.csv` | Additional usage data included in the case package |
+| `backend/data/dict_tariff.csv`, `backend/tariff_dictionary.csv` | Tariff dictionaries |
+| `backend/feature_dictionary.csv` | Feature descriptions |
 
-Текущая стратегия непосредственно использует профиль, историю переходов
-и доступные через среду тарифы и параметры каналов. Наличие дополнительных CSV
-в репозитории не означает, что все они используются алгоритмом.
+The strategy directly uses customer profiles, transition history, and tariff and
+channel parameters exposed by the environment. It does not directly use the
+additional monthly revenue and traffic files.
 
-Интеграция фронтенда выполняется с собственным FastAPI.
-Подключение к CRM, биллингу, SMS-провайдерам и реальным рекламным кабинетам не реализовано.
+The frontend integrates with the project's own FastAPI service.
+There are no live CRM, billing, SMS-provider, or advertising-platform integrations.
 
-## 9. Ограничения
+## Constraints and Limitations
 
-### Условия кейса
+### Hackathon Constraints
 
-- От 1 до 10 итоговых кампаний: 10 - максимум, а не обязательное количество.
-- Не более 5 000 абонентов в одной итоговой кампании.
-- До 20 пилотов, от 10 до 200 абонентов в каждом.
-- До 15 000 контактов суммарно, включая пилоты.
-- Бюджет 100 000 у.е. на пилоты и итоговые кампании вместе.
-- Эффект одного абонента учитывается один раз, по лучшей для него кампании.
-- Время работы агента по регламенту - не более 10 минут.
+- Between 1 and 10 final campaigns, with up to 5,000 subscribers per campaign.
+- Up to 20 pilots, each involving 10-200 subscribers.
+- Up to 15,000 total contacts, including pilots.
+- A total budget of 100,000 arbitrary units for pilots and final campaigns combined.
+- Each subscriber's effect is counted once, using their best campaign.
+- Agent execution must take no more than 10 minutes.
 
-Полные требования находятся в [руководстве участника](backend/PARTICIPANT_GUIDE.md).
+See the [participant guide](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/blob/integration-dashboard-metrics/backend/PARTICIPANT_GUIDE.md)
+for the original case requirements.
 
-### Ограничения текущей версии
+### Current Application Limitations
 
-- Оценка считается в mock-среде. Положительный локальный результат не гарантирует
-  аналогичный результат на скрытой среде судейства или на реальных абонентах.
-- Выбор плана эвристический: глобально оптимальное решение не гарантируется.
-- Нет загрузки пользовательских данных через интерфейс; используются файлы проекта.
-- Запуски хранятся в памяти и исчезают после перезапуска API.
-- Расчёты выполняются последовательно; бэкенд следует запускать одним процессом
-  Uvicorn, без нескольких `workers`.
-- Нет авторизации, постоянной базы данных и промышленной инфраструктуры.
-- Для прямых запросов браузера CORS разрешает `localhost:5173` и
-  `127.0.0.1:5173`. Общий скрипт использует прокси Vite.
-- Статическая сборка фронтенда не включает Python API. Для отдельного размещения
-  нужны работающий бэкенд, настройка маршрута API и разрешённых origin.
+- Mock-environment results do not guarantee the same judging score or real-world profit.
+- The strategy is heuristic and does not guarantee a globally optimal plan.
+- There is no dataset upload through the dashboard; the application uses project files.
+- Runs are stored in memory and disappear when the API restarts.
+- Calculations execute sequentially. Run the backend with one Uvicorn process,
+  not multiple workers.
+- Authentication, persistent storage, and production infrastructure are not implemented.
+- Direct browser requests are allowed from `localhost:5173` and `127.0.0.1:5173`;
+  the combined launcher uses the Vite proxy.
+- A static frontend build does not include the Python API. Separate deployment
+  requires a running backend, API routing, and appropriate allowed origins.
+- The application produces plans and calculations; it does not send real offers.
 
-## 10. Развёрнутая версия
+## Deployment
 
-Публичная deployed-версия в текущем репозитории не указана.
-Демонстрация запускается локально по инструкции выше.
-Адреса `localhost` и `127.0.0.1` не являются публичным деплоем.
+No public deployment URL is documented in the repository. The demonstration runs
+locally using the instructions above. `localhost` and `127.0.0.1` are local
+addresses, not public deployment links.
 
-Репозиторий команды: [BAITC-Hacks / Deadline Driven](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven).
+[Working Application](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/tree/integration-dashboard-metrics)
+| [Integration Pull Request](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven/pull/2)
+| [Team Repository](https://github.com/BAITC-Hacks/hack-2804924d-deadline-driven)
